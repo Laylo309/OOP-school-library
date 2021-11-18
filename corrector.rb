@@ -1,8 +1,6 @@
-require_relative './person'
-
 class Corrector
-  def correct_name(name: 'Unknown')
+  def correct_name(name)
     name.capitalize!
-    name.first(10)
+    name[0...10]
   end
 end
