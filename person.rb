@@ -1,20 +1,21 @@
-require_relative './corrector'
-require_relative './rental'
+require './corrector'
+require './rental'
 
+#rubocop:disable all
 class Person
   attr_reader :id
   attr_accessor :name, :age, :rentals
 
-  def initialize(age, name = 'Unknown', parent_permission: true)
-    @id = Random.rand(1..1000)
+  def initialize(age, name = 'Unknown', parent_permission = true)
+    @id = Random.rand(1..10_000)
     @name = name
     @age = age
-    @parent_permission = parent_permission
     @corrector = Corrector.new
+    @parent_permission = parent_permission
   end
 
-  def can_use_services?
-    of_age? || @parent_permission
+  def can_use_service?
+    age_of? || @parent_permission
   end
 
   def validate_name
@@ -22,12 +23,12 @@ class Person
   end
 
   def add_rental(date, book)
-    Rental.new(date, book, self)
+    Rental.new(date, self, book)
   end
 
   private
 
-  def of_age?
+  def age_of?
     @age >= 18
   end
 end
