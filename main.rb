@@ -95,7 +95,7 @@ class App
   end
 
   def all_rentals
-    print 'Id of the person:'
+    print 'ID of the person:'
 
     id = gets.chomp.to_i
     rentals = @rentals.filter { |rental| rental.person.id == id }

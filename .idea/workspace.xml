@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f2d5f888-d237-457c-86fb-4100f4d3a8d0" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/person.rb" beforeDir="false" afterPath="$PROJECT_DIR$/person.rb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/student.rb" beforeDir="false" afterPath="$PROJECT_DIR$/student.rb" afterDir="false" />
-    </list>
+    <list default="true" id="f2d5f888-d237-457c-86fb-4100f4d3a8d0" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -107,7 +104,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1637264893251</updated>
-      <workItem from="1637264897952" duration="12532000" />
+      <workItem from="1637264897952" duration="13133000" />
     </task>
     <servers />
   </component>
