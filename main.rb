@@ -1,5 +1,4 @@
 require './app'
-# rubocop:disable all
 
 def main
   app = App.new
@@ -35,5 +34,4 @@ def main
     puts "\n"
   end
 end
-
 main()
