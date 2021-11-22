@@ -4,7 +4,7 @@ require './classroom'
 require './rental'
 require './student'
 require './teacher'
-#rubocop:disable all
+
 class App
   def initialize
     @books = []
@@ -73,16 +73,16 @@ class App
   end
 
   def create_rental
-    puts 'Select a book from the following list by number'
+    puts 'Select a book from the following list by number\n'
     @books.each_with_index do |book, index|
-      puts "#{index} Title: #{book.title}, Author: #{book.author}"
+      print "#{index}) Title: #{book.title}, Author: #{book.author}"
     end
 
     book_rental = gets.chomp.to_i
 
-    print "\nSelect a person from th following list by number (not id)"
+    print "\nSelect a person from th following list by number (not id)\n"
     @people.each_with_index do |person, index|
-      puts "#{index} #{person.class} Name: #{person.name}, Id: #{person.id}, Age: #{person.age}"
+      print "#{index}) [#{person.class}] Name: #{person.name}, ID: #{person.id}, Age: #{person.age}"
     end
 
     person_rental = gets.chomp.to_i

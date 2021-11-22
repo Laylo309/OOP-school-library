@@ -1,5 +1,5 @@
 require './app'
-#rubocop:disable all
+# rubocop:disable Metrics/MethodLength
 def main
   app = App.new
 
@@ -34,4 +34,5 @@ def main
     puts "\n"
   end
 end
+# rubocop:disable Metrics/MethodLength
 main
