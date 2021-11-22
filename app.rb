@@ -23,7 +23,8 @@ class App
       puts "[#{person.class}] Name: #{person.name}, ID: #{person.id}, Age: #{person.age}"
     end
   end
-# rubocop:disable Metrics/MethodLength
+
+  # rubocop:disable Metrics/MethodLength
   def create_person
     puts 'Do you want to create a student (1) or a teacher (2)? [Input the number]: '
     person_type = gets.chomp
@@ -57,7 +58,8 @@ class App
     @people << person
     puts 'Person created'
   end
-# rubocop:disable Metrics/MethodLength
+
+  # rubocop:disable Metrics/MethodLength
   # *Create a book.
   def create_book
     print 'Title: '
