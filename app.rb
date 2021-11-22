@@ -4,7 +4,7 @@ require './classroom'
 require './rental'
 require './student'
 require './teacher'
-
+#rubocop:disable all
 class App
   def initialize
     @books = []
