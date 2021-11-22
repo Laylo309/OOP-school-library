@@ -33,7 +33,6 @@ def main
     end
     puts "\n"
   end
-  # rubocop:disable Metrics/MethodLength
 end
-
+# rubocop:disable Metrics/MethodLength
 main

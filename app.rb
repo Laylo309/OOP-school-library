@@ -58,9 +58,9 @@ class App
     @people << person
     puts 'Person created'
   end
-
   # rubocop:disable Metrics/MethodLength
-  # *Create a book.
+  # rubocop:enable
+
   def create_book
     print 'Title: '
 
