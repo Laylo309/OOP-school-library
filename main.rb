@@ -34,5 +34,4 @@ def main
     puts "\n"
   end
 end
-# rubocop:disable Metrics/MethodLength
 main
