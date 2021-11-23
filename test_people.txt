@@ -1,0 +1,1 @@
+{"people":["{\"classname\":\"NilClass\",\"age\":\"18\",\"name\":\"Laylo\",\"parent_permission\":true,\"classroom\":true}","{\"classname\":\"NilClass\",\"age\":\"22\",\"name\":\"Carlos\",\"parent_permission\":true,\"classroom\":true}","{\"classname\":\"NilClass\",\"age\":\"24\",\"name\":\"Nelsino\",\"parent_permission\":true,\"specialization\":\"Magic Teacher\"}"]}

@@ -1,3 +1,5 @@
+require 'json'
+
 class Rental
   attr_accessor :date
   attr_reader :person, :book
@@ -8,5 +10,16 @@ class Rental
     @person = person
 
     @book = book
+    
+    person.rentals << self 
+    book.rental << self
+  end
+
+  def to_json
+    JSON.dump ({
+      date: @date,
+      person: @person.to_json,
+      book: @book.to_json 
+    })
   end
 end

@@ -1,0 +1,1 @@
+{"books":["{\"title\":\"dasdsa\",\"author\":\"dasdsa\",\"rental\":[]}","{\"title\":\"Leviathan wakes\",\"author\":\"James S. Corey\",\"rental\":[]}"]}

@@ -4,6 +4,7 @@ require './classroom'
 require './rental'
 require './student'
 require './teacher'
+require 'json'
 
 class App
   def initialize
@@ -57,6 +58,7 @@ class App
       end
 
     @people << person
+    people_to_json
     puts 'Person created'
   end
 
@@ -72,20 +74,21 @@ class App
     author = gets.chomp
 
     @books << Book.new(title, author)
+    book_to_json
     puts 'Book created'
   end
 
   def create_rental
     puts 'Select a book from the following list by number\n'
     @books.each_with_index do |book, index|
-      print "#{index}) Title: #{book.title}, Author: #{book.author}"
+      puts "#{index}) Title: #{book.title}, Author: #{book.author}"
     end
 
     book_rental = gets.chomp.to_i
 
     print "\nSelect a person from th following list by number (not id)\n"
     @people.each_with_index do |person, index|
-      print "#{index}) [#{person.class}] Name: #{person.name}, ID: #{person.id}, Age: #{person.age}"
+      puts "#{index}) [#{person.class}] Name: #{person.name}, ID: #{person.id}, Age: #{person.age}"
     end
 
     person_rental = gets.chomp.to_i
@@ -94,6 +97,8 @@ class App
 
     date = gets.chomp
     @rentals << Rental.new(date, @people[person_rental], @books[book_rental])
+    rental_to_json
+    book_to_json
     print 'Rental created successfully'
   end
 
@@ -105,6 +110,86 @@ class App
     puts 'Rentals:'
     rentals.each do |rental|
       puts "Date: #{rental.date}, Book #{rental.book.title} by #{rental.book.author}"
+    end
+  end
+
+  def from_json(books: nil, people: nil, rentals: nil)
+    if books
+      from_books_json(books)
+    end
+
+    if people
+      from_people_json(people)
+    end
+
+    if rentals
+      from_rentals_json(rentals)
+    end
+  end
+
+  private 
+
+  def book_to_json
+    book_json_array = []
+
+    @books.each do |book|
+      book_json_array.push(book.to_json)
+    end
+
+    book_json_array = JSON.dump ({
+      books: book_json_array,
+    })
+
+    File.write("books.json", book_json_array)
+  end
+
+  def people_to_json
+    people_json_array = []
+    @people.each do |person|
+      people_json_array.push(person.to_json)
+    end
+
+    people_json_array = JSON.dump ({
+      people: people_json_array
+    })
+    
+    File.write("people.json", people_json_array)
+  end
+
+  def rental_to_json
+    rentals_json = []
+    @rentals.each do |r|
+      rentals_json.push(r.to_json)
+    end
+
+    rentals_json = JSON.dump ({
+      rentals: rentals_json
+    })
+
+    File.write("rentals.json", rentals_json)
+  end
+
+  def from_books_json(books)
+    preserved_books = JSON.load books
+
+    preserved_books['books'].each do |obj|
+      puts obj
+    end
+  end
+
+  def from_people_json(people)
+    preserved_people = JSON.load people
+
+    preserved_people['people'].each do |obj|
+      puts obj
+    end
+  end
+
+  def from_rentals_json(rentals)
+    preserved_rentals = JSON.load rentals
+
+    preserved_rentals['rentals'].each do |obj|
+      puts obj
     end
   end
 end

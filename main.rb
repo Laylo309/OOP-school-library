@@ -3,6 +3,19 @@ require './app'
 # rubocop:disable Metrics/CyclomaticComplexity, Metrics/MethodLength
 def main
   app = App.new
+  books, people, rentals = nil
+
+  begin
+    books = File.open("books.json")
+    people = File.open("people.json")
+    rentals = File.open("rentals.json")
+  rescue => exception
+    # print what error the system is gaving us
+  else
+    app.from_json(books: books, people: people, rentals: rentals)
+  end
+  
+  
 
   response = nil
   print 'Welcome to School Library App!'
@@ -15,21 +28,21 @@ def main
     puts '5 - Create a rental'
     puts '6 - List all rentals for a given person id'
     puts '7 - Exit'
-    response = gets.chomp
+    response = gets.chomp.to_i
     case response
-    when '1'
+    when 1
       app.all_books
-    when '2'
+    when 2
       app.all_people
-    when '3'
+    when 3
       app.create_person
-    when '4'
+    when 4
       app.create_book
-    when '5'
+    when 5
       app.create_rental
-    when '6'
+    when 6
       app.all_rentals
-    when '7'
+    when 7
       puts 'Thank you for using this app'
     end
     puts "\n"
