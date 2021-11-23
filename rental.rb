@@ -12,14 +12,14 @@ class Rental
     @book = book
     
     person.rentals << self 
-    book.rental << self
+    book.rentals << self
   end
 
   def to_json
     JSON.dump ({
       date: @date,
       person: @person.to_json,
-      book: @book.to_json 
+      book: @book.to_json
     })
   end
 end

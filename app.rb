@@ -57,6 +57,7 @@ class App
         Teacher.new(age, specialization, name)
       end
 
+      
     @people << person
     people_to_json
     puts 'Person created'
@@ -74,6 +75,7 @@ class App
     author = gets.chomp
 
     @books << Book.new(title, author)
+    i = @books.length 
     book_to_json
     puts 'Book created'
   end
@@ -96,7 +98,9 @@ class App
     print "\nDate "
 
     date = gets.chomp
+
     @rentals << Rental.new(date, @people[person_rental], @books[book_rental])
+
     rental_to_json
     book_to_json
     print 'Rental created successfully'
@@ -152,7 +156,7 @@ class App
     people_json_array = JSON.dump ({
       people: people_json_array
     })
-    
+
     File.write("people.json", people_json_array)
   end
 

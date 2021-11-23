@@ -21,7 +21,7 @@ class Student < Person
 
   def to_json
     JSON.dump ({
-      classname: @self.class,
+      classname: self.class,
       age: @age,
       name: @name,
       parent_permission: @parent_permission,
