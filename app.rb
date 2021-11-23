@@ -177,21 +177,27 @@ class App
     preserved_books = JSON.load books
 
     preserved_books['books'].each do |obj|
-      puts obj
+      file = JSON.load(obj)
+      @books << Book.new(file['title'], file['author'])
     end
   end
+
 
   def from_people_json(people)
     preserved_people = JSON.load people
 
     preserved_people['people'].each do |obj|
-      puts obj
+      file = JSON.load(obj)
+      if file['classname'] == 'Student'
+        @people << Student.new(file['age'], file['name'], file['parent_permission'])
+      else 
+        @people << Teacher.new(file['age'], file['specialization'], file['name'])
+      end
     end
   end
 
   def from_rentals_json(rentals)
     preserved_rentals = JSON.load rentals
-
     preserved_rentals['rentals'].each do |obj|
       puts obj
     end
