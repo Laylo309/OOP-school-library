@@ -1,4 +1,4 @@
-require './person'
+require_relative './person'
 require 'json'
 
 #rubocop:disable all

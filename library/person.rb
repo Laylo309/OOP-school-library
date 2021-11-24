@@ -1,5 +1,5 @@
-require './corrector'
-require './rental'
+require_relative './corrector'
+require_relative './rental'
 
 #rubocop:disable all
 class Person

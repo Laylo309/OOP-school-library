@@ -1,4 +1,5 @@
-require './app'
+require_relative './library/storage'
+require './library/app'
 
 # rubocop:disable Metrics/CyclomaticComplexity, Metrics/MethodLength
 def main
