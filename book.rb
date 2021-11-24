@@ -14,11 +14,11 @@ class Book
     Rental.new(date, person, self)
   end
 
-  def to_json
-    JSON.dump ({
-      title: @title,
-      author: @author,
-      # rentals: @rentals,
-    })
+  def to_json(*_args)
+    JSON.dump({
+                title: @title,
+                author: @author
+                # rentals: @rentals,
+              })
   end
 end

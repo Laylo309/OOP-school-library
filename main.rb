@@ -6,15 +6,15 @@ def main
   books, people, rentals = nil
 
   begin
-    books = File.open( "books.json")
-    people = File.open("people.json")
-    rentals = File.open("rentals.json")
-  rescue => exception
-    # print what error the system is gaving us
+    books = File.open('books.json')
+    people = File.open('people.json')
+    rentals = File.open('rentals.json')
+  rescue StandardError => e
+    puts e
   else
     app.from_json(books: books, people: people, rentals: rentals)
   end
-  
+
   response = nil
   puts 'Welcome to School Library App!'
   while response != 7

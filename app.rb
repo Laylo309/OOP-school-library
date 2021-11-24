@@ -57,7 +57,6 @@ class App
         Teacher.new(age, specialization, name)
       end
 
-      
     @people << person
     people_to_json
     puts 'Person created'
@@ -75,7 +74,6 @@ class App
     author = gets.chomp
 
     @books << Book.new(title, author)
-    i = @books.length 
     book_to_json
     puts 'Book created'
   end
@@ -118,20 +116,14 @@ class App
   end
 
   def from_json(books: nil, people: nil, rentals: nil)
-    if books
-      from_books_json(books)
-    end
+    from_books_json(books) if books
 
-    if people
-      from_people_json(people)
-    end
+    from_people_json(people) if people
 
-    if rentals
-      from_rentals_json(rentals)
-    end
+    from_rentals_json(rentals) if rentals
   end
 
-  private 
+  private
 
   def book_to_json
     book_json_array = []
@@ -140,11 +132,11 @@ class App
       book_json_array.push(book.to_json)
     end
 
-    book_json_array = JSON.dump ({
-      books: book_json_array,
-    })
+    book_json_array = JSON.dump({
+                                  books: book_json_array
+                                })
 
-    File.write("books.json", book_json_array)
+    File.write('books.json', book_json_array)
   end
 
   def people_to_json
@@ -153,11 +145,11 @@ class App
       people_json_array.push(person.to_json)
     end
 
-    people_json_array = JSON.dump ({
-      people: people_json_array
-    })
+    people_json_array = JSON.dump({
+                                    people: people_json_array
+                                  })
 
-    File.write("people.json", people_json_array)
+    File.write('people.json', people_json_array)
   end
 
   def rental_to_json
@@ -166,11 +158,11 @@ class App
       rentals_json.push(r.to_json)
     end
 
-    rentals_json = JSON.dump ({
-      rentals: rentals_json
-    })
+    rentals_json = JSON.dump({
+                               rentals: rentals_json
+                             })
 
-    File.write("rentals.json", rentals_json)
+    File.write('rentals.json', rentals_json)
   end
 
   def from_books_json(books)
@@ -182,24 +174,66 @@ class App
     end
   end
 
-
   def from_people_json(people)
     preserved_people = JSON.load people
 
     preserved_people['people'].each do |obj|
       file = JSON.load(obj)
-      if file['classname'] == 'Student'
-        @people << Student.new(file['age'], file['name'], file['parent_permission'])
-      else 
-        @people << Teacher.new(file['age'], file['specialization'], file['name'])
-      end
+      instantiate_json_people(file)
     end
+  end
+
+  def instantiate_json_people(obj)
+    @people << if obj['classname'] == 'Student'
+                 Student.new(obj['age'], obj['name'], obj['parent_permission'])
+               else
+                 Teacher.new(obj['age'], obj['specialization'], obj['name'])
+               end
   end
 
   def from_rentals_json(rentals)
     preserved_rentals = JSON.load rentals
     preserved_rentals['rentals'].each do |obj|
-      puts obj
+      obj_json = JSON.load obj
+      people_index = lookup_people(obj_json)
+      book_index = lookup_book(obj_json)
+      date = obj_json['date']
+      @rentals << Rental.new(date, @people[people_index], @books[book_index])
     end
+  end
+
+  def lookup_people(obj)
+    obj = JSON.load obj['person']
+    index = nil
+
+    if obj['classname'] == 'Teacher'
+      @people.each_with_index do |p, i|
+        if obj['classname'] == p.class && obj['age'] == p.age && obj['name'] == p.name && obj['specialization'] == p.specialization
+          index = i
+          break
+        end
+      end
+    else
+      @people.each_with_index do |p, i|
+        if obj['classname'] == p.class.to_s && obj['age'] == p.age && obj['name'] == p.name && obj['parent_permission'] == p.parent_permission
+          index = i
+          break
+        end
+      end
+    end
+
+    index
+  end
+
+  def lookup_book(obj)
+    obj = JSON.load obj['book']
+    index = nil
+    @books.each_with_index do |b, i|
+      if obj['title'] == b.title && obj['author'] == b.author
+        index = i
+        break
+      end
+    end
+    index
   end
 end

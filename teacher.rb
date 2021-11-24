@@ -1,6 +1,8 @@
 require 'json'
 
 class Teacher < Person
+  attr_accessor :specialization
+
   def initialize(age, specialization, name = 'Unknown')
     super(age, name)
     @specialization = specialization
@@ -10,13 +12,13 @@ class Teacher < Person
     true
   end
 
-  def to_json
-    JSON.dump ({
-      classname: self.class,
-      age: @age,
-      name: @name,
-      parent_permission: @parent_permission,
-      specialization: @specialization,
-    })
+  def to_json(*_args)
+    JSON.dump({
+                classname: self.class,
+                age: @age,
+                name: @name,
+                parent_permission: @parent_permission,
+                specialization: @specialization
+              })
   end
 end
