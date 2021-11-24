@@ -57,6 +57,7 @@ module Storage
 
   def from_books_json(books)
     preserved_books = JSON.parse books
+    return if preserved_books == []
 
     preserved_books['books'].each do |obj|
       file = JSON.parse(obj)
@@ -66,7 +67,7 @@ module Storage
 
   def from_people_json(people)
     preserved_people = JSON.parse people
-
+    return if preserved_people == []
     preserved_people['people'].each do |obj|
       file = JSON.parse(obj)
       instantiate_json_people(file) if file
@@ -83,48 +84,40 @@ module Storage
 
   def from_rentals_json(rentals)
     preserved_rentals = JSON.parse rentals
-
+    return if preserved_rentals == []
     preserved_rentals['rentals'].each do |obj|
       obj_json = JSON.parse obj
-      people_index = lookup_people(obj_json)
-      book_index = lookup_book(obj_json)
       date = obj_json['date']
-      @rentals << Rental.new(date, @people[people_index], @books[book_index])
+      @rentals << Rental.new(date, @people[lookup_people(obj_json)], @books[lookup_book(obj_json)])
     end
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def lookup_people(obj)
     obj = JSON.parse obj['person']
-    index = nil
-
+    classname = obj['classname']
+    age = obj['age']
+    name = obj['name']
+    specialization = obj['specialization']
+    parent_permission = obj['parent_permission']
     if obj['classname'] == 'Teacher'
       @people.each_with_index do |p, i|
-        if obj['classname'] == p.class.to_s && obj['age'] == p.age && obj['name'] == p.name && obj['specialization'] == p.specialization
-          index = i
-          break
-        end
+        return i if classname == p.class.to_s && age == p.age && name == p.name && specialization == p.specialization
       end
     else
       @people.each_with_index do |p, i|
-        if obj['classname'] == p.class.to_s && obj['age'] == p.age && obj['name'] == p.name && obj['parent_permission'] == p.parent_permission
-          index = i
-          break
+        if classname == p.class.to_s && age == p.age && name == p.name && parent_permission == p.parent_permission
+          return i
         end
       end
     end
-
-    index
   end
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   def lookup_book(obj)
     obj = JSON.parse obj['book']
-    index = nil
     @books.each_with_index do |b, i|
-      if obj['title'] == b.title && obj['author'] == b.author
-        index = i
-        break
-      end
+      return i if obj['title'] == b.title && obj['author'] == b.author
     end
-    index
   end
 end

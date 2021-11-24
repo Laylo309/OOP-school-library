@@ -121,20 +121,21 @@ class App
   end
 
   def load_state
-      if File.exist?('books.json')
-        books = File.read 'books.json'
-        from_json(books: books)
-      end
-  
-      if File.exist?('people.json')
-        people = File.read 'people.json'
-        from_json(people: people)
-      end
-  
-      if File.exist?('books.json') && File.exist?('people.json') && File.exist?('rentals.json')
-        rentals = File.read 'rentals.json'
-  
-        from_json(rentals: rentals)
-      end
+    if File.exist?('books.json')
+      books = File.read 'books.json'
+      from_json(books: books)
+    end
+
+    if File.exist?('people.json')
+      people = File.read 'people.json'
+      from_json(people: people)
+    end
+    # rubocop:disable Style/GuardClause
+    if File.exist?('books.json') && File.exist?('people.json') && File.exist?('rentals.json')
+      # rubocop:enable Style/GuardClause
+      rentals = File.read 'rentals.json'
+
+      from_json(rentals: rentals)
+    end
   end
 end
