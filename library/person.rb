@@ -1,10 +1,10 @@
-require './corrector'
-require './rental'
+require_relative './corrector'
+require_relative './rental'
 
 #rubocop:disable all
 class Person
   attr_reader :id
-  attr_accessor :name, :age, :rentals
+  attr_accessor :name, :age, :rentals, :parent_permission
 
   def initialize(age, name = 'Unknown', parent_permission = true)
     @id = Random.rand(1..10_000)
@@ -12,6 +12,7 @@ class Person
     @age = age
     @corrector = Corrector.new
     @parent_permission = parent_permission
+    @rentals = []
   end
 
   def can_use_service?

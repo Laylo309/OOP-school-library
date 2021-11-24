@@ -1,11 +1,14 @@
-require './person'
-require './book'
-require './classroom'
-require './rental'
-require './student'
-require './teacher'
+require_relative './person'
+require_relative './book'
+require_relative './classroom'
+require_relative './rental'
+require_relative './student'
+require_relative './teacher'
+require_relative './storage'
+require 'json'
 
 class App
+  include Storage
   def initialize
     @books = []
     @people = []
@@ -78,14 +81,14 @@ class App
   def create_rental
     puts 'Select a book from the following list by number\n'
     @books.each_with_index do |book, index|
-      print "#{index}) Title: #{book.title}, Author: #{book.author}"
+      puts "#{index}) Title: #{book.title}, Author: #{book.author}"
     end
 
     book_rental = gets.chomp.to_i
 
     print "\nSelect a person from th following list by number (not id)\n"
     @people.each_with_index do |person, index|
-      print "#{index}) [#{person.class}] Name: #{person.name}, ID: #{person.id}, Age: #{person.age}"
+      puts "#{index}) [#{person.class}] Name: #{person.name}, ID: #{person.id}, Age: #{person.age}"
     end
 
     person_rental = gets.chomp.to_i
@@ -93,6 +96,7 @@ class App
     print "\nDate "
 
     date = gets.chomp
+
     @rentals << Rental.new(date, @people[person_rental], @books[book_rental])
     print 'Rental created successfully'
   end
@@ -105,6 +109,33 @@ class App
     puts 'Rentals:'
     rentals.each do |rental|
       puts "Date: #{rental.date}, Book #{rental.book.title} by #{rental.book.author}"
+    end
+  end
+
+  def save_state
+    rental_to_json
+    book_to_json
+    people_to_json
+
+    puts 'State saved successfully'
+  end
+
+  def load_state
+    if File.exist?('books.json')
+      books = File.read 'books.json'
+      from_json(books: books)
+    end
+
+    if File.exist?('people.json')
+      people = File.read 'people.json'
+      from_json(people: people)
+    end
+    # rubocop:disable Style/GuardClause
+    if File.exist?('books.json') && File.exist?('people.json') && File.exist?('rentals.json')
+      # rubocop:enable Style/GuardClause
+      rentals = File.read 'rentals.json'
+
+      from_json(rentals: rentals)
     end
   end
 end
