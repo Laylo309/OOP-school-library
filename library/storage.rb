@@ -9,9 +9,7 @@ require 'json'
 module Storage
   def from_json(books: nil, people: nil, rentals: nil)
     from_books_json(books) if books
-
     from_people_json(people) if people
-
     from_rentals_json(rentals) if rentals
   end
 
@@ -58,20 +56,20 @@ module Storage
   end
 
   def from_books_json(books)
-    preserved_books = JSON.load books
+    preserved_books = JSON.parse books
 
     preserved_books['books'].each do |obj|
-      file = JSON.load(obj)
-      @books << Book.new(file['title'], file['author'])
+      file = JSON.parse(obj)
+      @books << Book.new(file['title'], file['author']) if file
     end
   end
 
   def from_people_json(people)
-    preserved_people = JSON.load people
+    preserved_people = JSON.parse people
 
     preserved_people['people'].each do |obj|
-      file = JSON.load(obj)
-      instantiate_json_people(file)
+      file = JSON.parse(obj)
+      instantiate_json_people(file) if file
     end
   end
 
@@ -84,18 +82,20 @@ module Storage
   end
 
   def from_rentals_json(rentals)
-    preserved_rentals = JSON.load rentals
+    preserved_rentals = JSON.parse rentals
+
     preserved_rentals['rentals'].each do |obj|
-      obj_json = JSON.load obj
+      obj_json = JSON.parse obj
       people_index = lookup_people(obj_json)
       book_index = lookup_book(obj_json)
+      puts people_index, book_index
       date = obj_json['date']
       @rentals << Rental.new(date, @people[people_index], @books[book_index])
     end
   end
 
   def lookup_people(obj)
-    obj = JSON.load obj['person']
+    obj = JSON.parse obj['person']
     index = nil
 
     if obj['classname'] == 'Teacher'
@@ -118,7 +118,7 @@ module Storage
   end
 
   def lookup_book(obj)
-    obj = JSON.load obj['book']
+    obj = JSON.parse obj['book']
     index = nil
     @books.each_with_index do |b, i|
       if obj['title'] == b.title && obj['author'] == b.author

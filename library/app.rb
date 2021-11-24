@@ -60,7 +60,6 @@ class App
       end
 
     @people << person
-    people_to_json
     puts 'Person created'
   end
 
@@ -76,7 +75,6 @@ class App
     author = gets.chomp
 
     @books << Book.new(title, author)
-    book_to_json
     puts 'Book created'
   end
 
@@ -100,9 +98,6 @@ class App
     date = gets.chomp
 
     @rentals << Rental.new(date, @people[person_rental], @books[book_rental])
-
-    rental_to_json
-    book_to_json
     print 'Rental created successfully'
   end
 
@@ -115,5 +110,31 @@ class App
     rentals.each do |rental|
       puts "Date: #{rental.date}, Book #{rental.book.title} by #{rental.book.author}"
     end
+  end
+
+  def save_state
+    rental_to_json
+    book_to_json
+    people_to_json
+
+    puts 'State saved successfully'
+  end
+
+  def load_state
+      if File.exist?('books.json')
+        books = File.read 'books.json'
+        from_json(books: books)
+      end
+  
+      if File.exist?('people.json')
+        people = File.read 'people.json'
+        from_json(people: people)
+      end
+  
+      if File.exist?('books.json') && File.exist?('people.json') && File.exist?('rentals.json')
+        rentals = File.read 'rentals.json'
+  
+        from_json(rentals: rentals)
+      end
   end
 end
