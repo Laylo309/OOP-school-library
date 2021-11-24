@@ -4,7 +4,7 @@ require './library/app'
 # rubocop:disable Metrics/CyclomaticComplexity, Metrics/MethodLength
 def main
   app = App.new
-  app.read_files
+  app.load_state
 
   response = nil
   puts 'Welcome to School Library App!'
@@ -32,6 +32,7 @@ def main
     when 6
       app.all_rentals
     when 7
+      app.save_state
       puts 'Thank you for using this app'
     end
     puts "\n"

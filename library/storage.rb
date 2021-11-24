@@ -88,7 +88,6 @@ module Storage
       obj_json = JSON.parse obj
       people_index = lookup_people(obj_json)
       book_index = lookup_book(obj_json)
-      puts people_index, book_index
       date = obj_json['date']
       @rentals << Rental.new(date, @people[people_index], @books[book_index])
     end
