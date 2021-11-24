@@ -68,6 +68,7 @@ module Storage
   def from_people_json(people)
     preserved_people = JSON.parse people
     return if preserved_people == []
+
     preserved_people['people'].each do |obj|
       file = JSON.parse(obj)
       instantiate_json_people(file) if file
@@ -85,6 +86,7 @@ module Storage
   def from_rentals_json(rentals)
     preserved_rentals = JSON.parse rentals
     return if preserved_rentals == []
+
     preserved_rentals['rentals'].each do |obj|
       obj_json = JSON.parse obj
       date = obj_json['date']
