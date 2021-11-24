@@ -208,7 +208,7 @@ class App
 
     if obj['classname'] == 'Teacher'
       @people.each_with_index do |p, i|
-        if obj['classname'] == p.class && obj['age'] == p.age && obj['name'] == p.name && obj['specialization'] == p.specialization
+        if obj['classname'] == p.class.to_s && obj['age'] == p.age && obj['name'] == p.name && obj['specialization'] == p.specialization
           index = i
           break
         end
