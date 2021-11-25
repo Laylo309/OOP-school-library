@@ -1,5 +1,3 @@
-require 'rspec'
-
 class HelloWorld
 
    def say_hello 
