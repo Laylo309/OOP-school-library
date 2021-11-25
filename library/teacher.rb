@@ -1,3 +1,4 @@
+require_relative './person'
 require 'json'
 
 class Teacher < Person
