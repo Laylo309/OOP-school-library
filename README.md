@@ -22,11 +22,11 @@ This repository includes files with Ruby that can be used to is getting informat
 - Twitter: [@Laylo](https://twitter.com/home?lang=en)
 - LinkedIn: [LayloKhodjaeva](https://www.linkedin.com/in/laylo-khodjaeva-05a972207/)
 
- 👤 **Nelsino**
+👤 **Nelsino**
 
-- GitHub: @nelsinofrancisco
-- Twitter: @nelsino_s
-- LinkedIn: LinkedIn
+- GitHub: [@nelsinofrancisco](https://github.com/nelsinofrancisco)
+- Twitter: [@nelsino_s](https://twitter.com/nelsino_s)
+- LinkedIn: [LinkedIn](https://www.linkedin.com/in/nelsinofrancisco/)
 ## 🤝 Contributing
 
 Contributions, issues, and feature requests are welcome!
