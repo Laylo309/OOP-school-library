@@ -14,7 +14,7 @@ This repository includes files with Ruby that can be used to is getting informat
 - Please run the program in a IRB enviorement
 - From your terminal you have to run the following command: `ruby main.rb`
 - After running this command you will get following kind of information:
-  ./Screenshot_2.png
+![screenshot](./Screenshot_2.png)
   ## Author
 👤 **Laylo Khodjaeva**
 
