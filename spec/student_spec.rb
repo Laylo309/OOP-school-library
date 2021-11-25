@@ -30,7 +30,7 @@ describe Student do
     it 'Add a classroom to student should add the student to the classroom class' do
       new_classroom = Classroom.new('Laylo Playground')
       new_student = Student.new(22, 'Carlos', false)
-      new_student.classroom=(new_classroom)
+      new_student.classroom = (new_classroom)
       expect(new_student.classroom).to eq new_classroom
       expect(new_classroom.students[0]).to eq new_student
     end
@@ -44,7 +44,6 @@ describe Student do
       expect(JSON.parse(stud.to_json)['name']).to eq stud.name
       expect(JSON.parse(stud.to_json)['parent_permission']).to eq stud.parent_permission
       expect(JSON.parse(stud.to_json)['classroom']).to eq stud.classroom
-
     end
   end
 end

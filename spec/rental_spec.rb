@@ -5,7 +5,7 @@ require_relative '../library/teacher'
 
 describe Rental do
   context 'When instantianting Rental class' do
-    it 'Create rental and check if book and tchr are equal do our constants, working with both extensions of person class' do
+    it 'Create rental and check if book and tchr are equal do our constants' do
       # Rental.initialize(date, person, book)
       book = Book.new('Carlos Diary', 'Carlos')
       stud = Student.new(22, 'Carlos')
@@ -27,7 +27,7 @@ describe Rental do
       tchr = Teacher.new(22, 'Belly Dancer', 'Carlos')
       rental1 = Rental.new('25/11/2021', stud, book)
       rental2 = Rental.new('25/11/2021', tchr, book)
-      
+
       expect(stud.rentals[0]).to eq rental1
       expect(book.rentals[0]).to eq rental1
       expect(tchr.rentals[0]).to eq rental2

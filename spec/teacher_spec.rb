@@ -35,7 +35,6 @@ describe Teacher do
       expect(JSON.parse(tcher.to_json)['name']).to eq tcher.name
       expect(JSON.parse(tcher.to_json)['parent_permission']).to eq tcher.parent_permission
       expect(JSON.parse(tcher.to_json)['specialization']).to eq tcher.specialization
-
     end
   end
 end
