@@ -18,7 +18,6 @@ class Book
     JSON.dump({
                 title: @title,
                 author: @author
-                # rentals: @rentals,
               })
   end
 end
